@@ -2,7 +2,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>    Опросник для собеседований QA
+        <title>    Измерение магнитного поля с квадракоптера
 </title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -87,63 +87,84 @@
                 <article class="post-entry">
                     <header class="entry-header">
                         <time>
-                            10.08.2020
+                            01.09.2020
                         </time>
-                        <a href="/oprosnik-dlia-sobesedovanii-qa.html" rel="bookmark"><h1>Опросник для собеседований QA</h1></a>
+                        <a href="/izmerenie-magnitnogo-polia-s-kvadrakoptera.html" rel="bookmark"><h1>Измерение магнитного поля с квадракоптера</h1></a>
                     </header>
 
                     <section class="post-content">
-                        <p>Небольшой опросник для того, чтобы быстро отсеивать тех, кто совсем не знаком с тестированием.</p>
+                        <p>Мой небольшой проект по работе с геоданными</p>
+<blockquote>
+<p>"Мы абсолютно не геологи и в душе не представляем насколько эти значения меняются со временем и с местом"</p>
+<p>-- <cite>Одна из вводных</cite></p>
+</blockquote>
 <table>
 <thead>
 <tr>
-<th align="center"><img alt="Экран победы" src="/images/QuizApp2.png"></th>
+<th align="center"><img alt="Карта на примере Яндек карт для показа градиентной линии" src="/images/Copter1.jpg"></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center"><em>Главный экран опросника</em></td>
+<td align="center"><em>Минималистичный экран первой версии</em></td>
 </tr>
 </tbody>
 </table>
-<p>Проблема большинства опросников типа google forms в том, что они очень не гибкие</p>
+<p>Небольшая программа написанная на Electron.js с использованием API Яндекс.Карт для местной компании, работающей с данными по геомагнитному полю земли.</p>
+<table>
+<thead>
+<tr>
+<th align="center"><img alt="Карта на примере Яндек карт для показа градиентной линии" src="/images/Copter4.jpg"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><em>Вариант с более размытой тепловой картой</em></td>
+</tr>
+</tbody>
+</table>
+<p>Особенности проекта</p>
 <ul>
-<li>Нет возможности ограничить время на ответы непродолжительной сессией</li>
-<li>Нет возможности делать рандомный список вопросов разного содержания</li>
-<li>Платформы ориентированные под вопросы как правило платные и тяжеловесные</li>
+<li>поиск постоянных источников отклонения значений</li>
+<li>фильтрация и отброс аномальных значений</li>
+<li>Построение тепловой карты значений опираясь на точки в которых данные были собраны</li>
 </ul>
 <table>
 <thead>
 <tr>
-<th align="center"><img alt="Экран победы" src="/images/QuizApp3.png"></th>
+<th align="center"><img alt="Карта на примере Яндек карт для показа градиентной линии" src="/images/Copter3.png"></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center"><em>Результаты опроса</em></td>
+<td align="center"><em>Измерения проводились от 1 до нескольких домов, до десятков на десять квадратных метров. Пример зашумленного измерения</em></td>
 </tr>
 </tbody>
 </table>
-<p>Написал свой вариант.</p>
-<p>Основан на системе т.н. тикетов. Администратор быстро создает необходимое количество входных билетов, каждый из которых содержит случайную выборку вопросов из базы.</p>
+<h3>Инструментарий</h3>
+<ul>
+<li>Electron.js</li>
+<li>Яндекс-карты</li>
+<li>OpenStreet Maps</li>
+<li>pandas</li>
+<li>python</li>
+</ul>
 <table>
 <thead>
 <tr>
-<th align="center"><img alt="Экран победы" src="/images/QuizApp5.png"></th>
+<th align="center"><img alt="Карта на примере OSM для детального рассмотрения точек" src="/images/Copter2.jpg"></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center"><em>Внутри опросника</em></td>
+<td align="center"><em>Показ конкретных точек</em></td>
 </tr>
 </tbody>
 </table>
-<p>Вместо логинов-паролей собеседуемый получает готовый входной билетик, который запускает таймер обратного отсчета сразу после активации и пользователь по истечению времени автоматически перестает получать новые вопросы.</p>
-<p>А еще милый и неповторимый стиль взятый из <a href="https://nostalgic-css.github.io/NES.css/">NES.CSS</a></p>
                     </section>
                     <hr/>
                     <aside class="post-meta">
-                        <p>Category: <a href="/category/qa.html">QA</a></p>
+                        <p>Category: <a href="/category/dataanalitics.html">DataAnalitics</a></p>
                     </aside>
                     <hr/>
                 </article>
