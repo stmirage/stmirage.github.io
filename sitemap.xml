@@ -5,49 +5,56 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>/</loc>
-<lastmod>2020-12-03T20:52:40-00:00</lastmod>
+<lastmod>2020-12-13T21:34:01-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/tags.html</loc>
-<lastmod>2020-12-03T20:52:40-00:00</lastmod>
+<lastmod>2020-12-13T21:34:01-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/categories.html</loc>
-<lastmod>2020-12-03T20:52:40-00:00</lastmod>
+<lastmod>2020-12-13T21:34:01-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/authors.html</loc>
-<lastmod>2020-12-03T20:52:40-00:00</lastmod>
+<lastmod>2020-12-13T21:34:01-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/archives.html</loc>
-<lastmod>2020-12-03T20:52:40-00:00</lastmod>
+<lastmod>2020-12-13T21:34:01-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/pages/vse-proekty.html</loc>
-<lastmod>2020-12-03T20:52:40-00:00</lastmod>
+<lastmod>2020-12-13T21:34:01-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/pages/kontakty.html</loc>
-<lastmod>2020-12-03T20:52:40-00:00</lastmod>
+<lastmod>2020-12-13T21:34:01-00:00</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>/pishchevaia-bezdna-issledovanie-retseptov-saita-povarenok-chast-3.html</loc>
+<lastmod>2020-12-13T19:44:00+03:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -109,6 +116,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
+<loc>/category/machinelearning.html</loc>
+<lastmod>2020-12-13T19:44:00+02:30</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
 <loc>/category/qa.html</loc>
 <lastmod>2020-08-10T17:12:00+02:30</lastmod>
 <changefreq>daily</changefreq>
@@ -117,7 +131,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>/author/nick-louzgarev.html</loc>
-<lastmod>2020-12-01T20:53:00+02:30</lastmod>
+<lastmod>2020-12-13T19:44:00+02:30</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>

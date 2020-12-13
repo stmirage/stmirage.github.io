@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>    Пищевая бездна. Исследование рецептов сайта Поваренок. Часть 3
+</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link href="https://fonts.googleapis.com/css?family=PT+Serif:400,400i,700,700i&amp;display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/theme/css/main.css">
+        <link rel="stylesheet" href="/theme/css/stars.css">
+        <link rel="stylesheet" href="/theme/css/gray.css">
+
+    <link rel="stylesheet" href="/theme/css/blog.css">
+    <link rel="stylesheet" href="/theme/css/github.css">
+        <!-- <script src="/theme/js/vendor/modernizr-2.6.2.min.js"></script> -->
+        <link rel="shortcut icon" href="/images/favicon.png" />
+
+    </head>
+    <body class="">
+        <div id="page" class="site palette-yellow">
+      
+      <header id="masthead" class="site-header bg--loaded">
+
+        <div id="header-bg" class="site-header-bg" style="background-image:url('/images/DATAscience.png')">
+          </div>
+        <div class="site-header-scroll">
+          <div class="site-header-inside">
+            <div class="site-header-vertical">
+              <div class="site-branding">
+                <p class="site-logo">
+
+                </p>
+                <p class="site-description">Stmirage projects page</p>
+              </div>
+              <nav id="main-navigation" class="site-navigation" aria-label="Main Navigation">
+
+                <div class="site-nav-wrap">
+                  <div class="site-nav-inside">
+                    <ul class="menu">
+                      <li class="menu-item current-menu-item">
+                        <a href="/">Главная</a>
+                      </li>
+                      <li class="menu-item">
+                        <a href="/pages/kontakty">Контакты</a>
+                      </li>
+                      <li class="menu-item">
+                        <a href="/pages/vse-proekty">Все проекты</a>
+                      </li>
+                    </ul>
+
+                  </div>
+                </div>
+              </nav>
+
+              <button id="menu-toggle" class="menu-toggle">
+                <span class="screen-reader-text">Menu</span>
+                <span class="icon-menu" aria-hidden="true"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+
+<!--
+
+        <footer id="colophon" class="site-footer inner">
+          <div class="site-footer-inside">
+            <span class="copyright">Опубликовано с удовольствием 2019-2020</span>
+          </div>
+          <a id="to-top" class="to-top" href="https://themes.stackbit.com/demos/fjord/#page">
+            To top
+            <span class="icon-arrow-up" aria-hidden="true"></span>
+          </a>
+        </footer>  
+-->
+
+
+
+
+
+        <div id="content" class="site-content">
+        <main id="main" class="site-main inner">
+
+    <div id="post-container">
+                <article class="post-entry">
+                    <header class="entry-header">
+                        <time>
+                            13.12.2020
+                        </time>
+                        <a href="/pishchevaia-bezdna-issledovanie-retseptov-saita-povarenok-chast-3.html" rel="bookmark"><h1>Пищевая бездна. Исследование рецептов сайта Поваренок. Часть 3</h1></a>
+                    </header>
+
+                    <section class="post-content">
+                        <blockquote>
+<p>Это ему рано с нами общаться и салаты придумывать.
+ИИ - самообучающаяся система. Вот поучился бы хоть недельку - глядишь, что-нибудь дельное сочинил бы.
+Я тут в банке на днях пыталась оплатить ЖКХ - так банковский ИИ создал специальную системную ошибку, чтобы нельзя было без комиссии оплатить<br>
+Сообразил, гад, где выгода банка зарыта. Вот это я понимаю, интеллект!
+-- <cite>Один из негативных комментариев на сайте. Позитивных там нет.</cite></p>
+</blockquote>
+<h1>Делаем идеальные теги</h1>
+<p>Насмотревшись на данные, я принялся за модель машинного обучения.</p>
+<p>Сразу получил по мордасам. Ни один алгоритм или ансамбль алгоритмов не могли в лоб как-то разделить данные. Дело не в том, что данных много(на самом деле очень неплохо сжимались PCA или t-SNE), а в том, что никакой связи с рейтингом почти что не было. Можно было навернуть еще больше ансамблей, но я решил сделать проще.</p>
+<p>Есть отличный алгоритм, основанный на вероятности - «Наивный Байес». Для каждого тега, ингредиента или он посчитает вероятность того, что это слово встретися в интересующей нас категории - хорошие рецепты(10% лучших) или средние (90% остальных).</p>
+<p>Итак разница вероятностей. Все числа очень маленькие. Например, если для обеда встретиться в хорошем рецепте будет 51% , а в плохом 49%, то то итого станет 2%, в таблице.</p>
+<table>
+<thead>
+<tr>
+<th align="center">Тег или корень слова</th>
+<th align="center">разница вероятностей</th>
+<th align="center">+/- к рейтингу</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">Латышская кухня</td>
+<td align="center">2.9</td>
+<td align="center">'+'</td>
+</tr>
+<tr>
+<td align="center">вкус морков</td>
+<td align="center">2.9</td>
+<td align="center">'+'</td>
+</tr>
+<tr>
+<td align="center">вкус нов</td>
+<td align="center">2.9</td>
+<td align="center">'+'</td>
+</tr>
+<tr>
+<td align="center">Бельгийская кухня</td>
+<td align="center">2.2</td>
+<td align="center">'+'</td>
+</tr>
+<tr>
+<td align="center">Финская кухня</td>
+<td align="center">2.2</td>
+<td align="center">'+'</td>
+</tr>
+<tr>
+<td align="center">Чешская кухня</td>
+<td align="center">2.2</td>
+<td align="center">'+'</td>
+</tr>
+<tr>
+<td align="center">Египетская кухня</td>
+<td align="center">2.2</td>
+<td align="center">'+'</td>
+</tr>
+<tr>
+<td align="center">Сирийская кухня</td>
+<td align="center">2.2</td>
+<td align="center">'+'</td>
+</tr>
+<tr>
+<td align="center">Абхазская кухня</td>
+<td align="center">2.2</td>
+<td align="center">'+'</td>
+</tr>
+<tr>
+<td align="center">Казахская кухня</td>
+<td align="center">2.2</td>
+<td align="center">'+'</td>
+</tr>
+<tr>
+<td align="center">Молдавская кухня</td>
+<td align="center">2.2</td>
+<td align="center">'+'</td>
+</tr>
+<tr>
+<td align="center">Эстонская кухня</td>
+<td align="center">2.2</td>
+<td align="center">'+'</td>
+</tr>
+<tr>
+<td align="center">..</td>
+<td align="center">..</td>
+<td align="center">..</td>
+</tr>
+<tr>
+<td align="center">вкус грушев</td>
+<td align="center">0.6</td>
+<td align="center">'-'</td>
+</tr>
+<tr>
+<td align="center">назначение  На десерт</td>
+<td align="center">0.7</td>
+<td align="center">'-'</td>
+</tr>
+<tr>
+<td align="center">назначение  Легкий</td>
+<td align="center">0.8</td>
+<td align="center">'-'</td>
+</tr>
+<tr>
+<td align="center">назначение  Для диеты</td>
+<td align="center">0.9</td>
+<td align="center">'-'</td>
+</tr>
+<tr>
+<td align="center">вкус кунжутн</td>
+<td align="center">0.96</td>
+<td align="center">'-'</td>
+</tr>
+<tr>
+<td align="center">вкус оливков</td>
+<td align="center">0.96</td>
+<td align="center">'-'</td>
+</tr>
+<tr>
+<td align="center">вкус остреньк</td>
+<td align="center">1.28</td>
+<td align="center">'-'</td>
+</tr>
+<tr>
+<td align="center">назначение  Для беременных и кормящих</td>
+<td align="center">1.36</td>
+<td align="center">'-'</td>
+</tr>
+<tr>
+<td align="center">назначение  На первое</td>
+<td align="center">1.37</td>
+<td align="center">'-'</td>
+</tr>
+<tr>
+<td align="center">вкус фруктов</td>
+<td align="center">1.98</td>
+<td align="center">'-'</td>
+</tr>
+<tr>
+<td align="center">назначение  Быстрый завтрак</td>
+<td align="center">2.22</td>
+<td align="center">'-'</td>
+</tr>
+</tbody>
+</table>
+<p>Что нам это даёт? ничего.</p>
+<p>Все теги с экстремальными значениями скорее скажут о том, что в этой категории люди стараются лучше. Но не о том, что тег сделал рецепт лучше. Видно, что вверху в основном редкие кухни. За ними потом пойдут основные категории — выпечка и блюда из мяса. А снизу самые распространенные. Я бы сделал ставку на то, что человек, который нашел время поговорить о латышской кухне, старается больше, чем тот, кто слепил два бутера, назвал это русской кухней и сказал, что они отлично подойдут на завтрак.</p>
+<p>С другой стороны если наверх попадает эксклюзив, и это может быть причиной повышенного внимания - почему бы не поставить такой тег? Если тег не противоречил самому блюду, я его добавлял.</p>
+<h1>Делаем название</h1>
+<p>Самая простая часть всего испытания. Очень простая RNN сеть, которая из символов воспроизводит название, глядя на корпус текста из реальных названий. Самое смешное, когда сеть только в трети случаев могла выговорить слово "Салат" получая то Балат, то C'лат.</p>
+<p>Что-то адекватное для идей:</p>
+<ul>
+<li>Ароми</li>
+<li>"Шанована"</li>
+<li>Чартизата</li>
+<li>Домашняя сари с каринайя и с каринами</li>
+<li>"Шанолад'ди "Мандо"</li>
+<li>Галя и с пертофель' "Шакалана"</li>
+<li>"словоми "Пиродной"</li>
+<li>"Шароладный "Миа"</li>
+<li>Яблочная гриба скоманая с петсовайний соленый с стованамиа с пертоваминой печеки с соминая с</li>
+<li>Прожначный "Mia "Marino"</li>
+<li>Салат "Салатнай"</li>
+<li>Шляпа</li>
+<li>Шаноч</li>
+<li>Проша</li>
+</ul>
+<p>Свой первый получившийся салат я решил назвать «Проша» в честь одного из двух своих котов — Протона.</p>
+<h1>Салат «Проша»</h1>
+<p>Первая GAN сеть решала следующую задачу — отличать салат от просто случайного шума. Сеть справилась очень быстро. Вот самый первый салат.</p>
+<p>Есть одна особенность. На выходе я получаю не готовый список, текст, или что-то такое. Я получаю список вообще всех возможных продуктов, каждому из которых назначена вероятность его употребления в этом рецепте.</p>
+<p>Не увидел смысла учитывать вес и способы приготовления. Салат очень простое блюдо. Гораздо логичнее было понять, есть там сыр или нет, чем получать смешные результаты типа соль 5.42 грамма. Внося средний вес продуктов, я уже очень сместил оценку.</p>
+<h3>Проша (наиболее вероятный состав)</h3>
+<ul>
+<li>Листья салата</li>
+<li>Сыр твердый</li>
+<li>Сок лимонный</li>
+<li>Масло оливковое</li>
+<li>Огурец</li>
+<li>Помидор</li>
+<li>Соевый соус</li>
+<li>Соль</li>
+<li>Уксус</li>
+<li>Чеснок</li>
+</ul>
+<p><em>..уходящий вниз хвост чего еще добавить..</em></p>
+<p>Вскрылась самая большая проблема этого подхода - получался очень усредненный салат. Огурцов и помидоров накидал, листья салата, специи — да, это точно салат.</p>
+<h1>Многомерный салат «Шаноч»</h1>
+<p>Я написал вторую нейросеть для которой было только два вида объктов во вселенной: обычный салат, и салат из категории топ-10%. </p>
+<p>Сгенерировал 100 салатов, осмотрел, что визуально они стали получше. топ ингредиентов сочетался достаточно неплохо.</p>
+<p>Поскольку для каждого ингредиента существующего в принципе была какая-то вероятность попадания, то у салата не было окончания. Можно было добавлять ингредиенты сверху вниз от собственно важных, постепенно к тем, которые по мнению алгоритма не повредят и до тех, которые совершенно неуместны. Это давало салату многомерность. В основном, все были похожи не то на Цезарь не то на Оливье. Иногда вылетала экзотика.</p>
+<p>Почти всегда визуально было ясно, где салат кончается - врывался какой-нибудь желатин на втором десятке ингредиентов, или бычье серлце, или форель (хотя салат уже куриный) и т.д.</p>
+<p>Я взял случайный, приготовил... и это съедобно.</p>
+<h3>Шаноч</h3>
+<table>
+<thead>
+<tr>
+<th align="center"><img alt="Шаноч" src="/images/FinalDish.png"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><em>Салатец</em></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Соль</li>
+<li>Перец болгарский</li>
+<li>Филе куриное</li>
+<li>Капуста пекинская</li>
+<li>Масло растительное</li>
+<li>Сыр плавленый</li>
+<li>Уксус</li>
+<li>Хрен</li>
+<li>Сметана</li>
+<li>Сок лимонный</li>
+<li>Петрушка</li>
+<li>Лук репчатый</li>
+<li>Майонез</li>
+<li>Чипсы</li>
+<li>Перец черный</li>
+</ul>
+<p><em>я прекратил салат, когда пошла форель</em></p>
+<h1>Реакция публики</h1>
+<p>Я сделал Салатик, поел. Cалат как салат. Бывало и лучше, конечно. Пришло время прощаться. Я открыл сайт, опубликовал салат, и думал, что моя работа закончена.</p>
+<p>Через 15 минут мою учетку заблокировали.
+В течение часа салат собирал только негативные отзывы.</p>
+<table>
+<thead>
+<tr>
+<th align="center"><img alt="Публика" src="/images/Comments1.png"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><em>публика</em></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th align="center"><img alt="Публика2" src="/images/Comments2.png"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><em>публика</em></td>
+</tr>
+</tbody>
+</table>
+<p>Люди говорили, что я псих, что не очень умный. Один чувак сделал отрицательный отзыв, что при наплыве так себе авторов еще и нейросети сейчас набегут. Что-то еще в личку нападало, но меня уже удалили с сайта, я не узнаю.Были по делу комментарии — я допустил кучу ошибок при оформлении и путался в названиях частей курицы.</p>
+<p>И реакция этих людей оказалась самой лучшей наградой. Смайлики 15-ти летней давности, достаточно простой взгляд на вещи, остроумные подколки, жалобы на комиссию в банке за платежки — это всё, наверное, и есть коллективный разум Поварёнка.</p>
+<p>У меня же теперь есть сетка для генерации достаточно однообразных салатов.</p>
+<p>Если кто-то хочет покопаться в датасете — пишите, я скину файлы.</p>
+<p><a href="https://www.povarenok.ru/recipes/show/169112/">мой салат</a></p>
+<table>
+<thead>
+<tr>
+<th align="center"><img alt="Публика2" src="/images/PovarenokNotFound.png"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><em>пока, Поварёнок! это было здорово!</em></td>
+</tr>
+</tbody>
+</table>
+                    </section>
+                    <hr/>
+                    <aside class="post-meta">
+                        <p>Category: <a href="/category/machinelearning.html">MachineLearning</a></p>
+                    </aside>
+                    <hr/>
+                </article>
+    </div>
+        </main>
+        <footer id="colophon" class="site-footer inner">
+          <div class="site-footer-inside">
+            <span class="copyright">Опубликовано с удовольствием 2019-2020</span>
+          </div>
+          <a id="to-top" class="to-top" href="https://themes.stackbit.com/demos/fjord/#page">
+            To top
+            <span class="icon-arrow-up" aria-hidden="true"></span>
+          </a>
+        </footer>
+      </div>
+
+        </div>
+
+        <script src="/theme/js/main.js" type="text/javascript"></script>
+        <script src="/theme/js/plugins.js" type="text/javascript"></script>
+        <!-- Yandex.Metrika counter -->
+        <script type="text/javascript" >
+           (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+           m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+           (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+           ym(69735988, "init", {
+                clickmap:true,
+                trackLinks:true,
+                accurateTrackBounce:true
+           });
+        </script>
+        <noscript><div><img src="https://mc.yandex.ru/watch/69735988" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+        <!-- /Yandex.Metrika counter -->
+    </body>
+
+
+
+<!--               
+
+ -->
