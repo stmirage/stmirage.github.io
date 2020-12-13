@@ -1,5 +1,0 @@
-User-agent: *
-Disallow: /theme/
-Allow: /
-Sitemap: https://stmirage.github.io/sitemap.xml
-Host: stmirage.github.io
