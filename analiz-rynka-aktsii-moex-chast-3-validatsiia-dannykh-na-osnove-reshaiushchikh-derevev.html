@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>    Анализ рынка акций MOEX. Часть 3. Валидация данных на основе решающих деревьев
+</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link href="https://fonts.googleapis.com/css?family=PT+Serif:400,400i,700,700i&amp;display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/theme/css/main.css">
+        <link rel="stylesheet" href="/theme/css/stars.css">
+        <link rel="stylesheet" href="/theme/css/gray.css">
+
+    <link rel="stylesheet" href="/theme/css/blog.css">
+    <link rel="stylesheet" href="/theme/css/github.css">
+        <!-- <script src="/theme/js/vendor/modernizr-2.6.2.min.js"></script> -->
+        <link rel="shortcut icon" href="/images/favicon.png" />
+
+    </head>
+    <body class="">
+        <div id="page" class="site palette-yellow">
+      
+      <header id="masthead" class="site-header bg--loaded">
+
+        <div id="header-bg" class="site-header-bg" style="background-image:url('/images/DATAscience.png')">
+          </div>
+        <div class="site-header-scroll">
+          <div class="site-header-inside">
+            <div class="site-header-vertical">
+              <div class="site-branding">
+                <p class="site-logo">
+
+                </p>
+                <p class="site-description">Stmirage projects page</p>
+              </div>
+              <nav id="main-navigation" class="site-navigation" aria-label="Main Navigation">
+
+                <div class="site-nav-wrap">
+                  <div class="site-nav-inside">
+                    <ul class="menu">
+                      <li class="menu-item current-menu-item">
+                        <a href="/">Главная</a>
+                      </li>
+                      <li class="menu-item">
+                        <a href="/pages/kontakty">Контакты</a>
+                      </li>
+                      <li class="menu-item">
+                        <a href="/pages/vse-proekty">Все проекты</a>
+                      </li>
+                    </ul>
+
+                  </div>
+                </div>
+              </nav>
+
+              <button id="menu-toggle" class="menu-toggle">
+                <span class="screen-reader-text">Menu</span>
+                <span class="icon-menu" aria-hidden="true"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+
+<!--
+
+        <footer id="colophon" class="site-footer inner">
+          <div class="site-footer-inside">
+            <span class="copyright">Опубликовано с удовольствием 2019-2020</span>
+          </div>
+        </footer>  
+-->
+
+
+
+
+
+        <div id="content" class="site-content">
+        <main id="main" class="site-main inner">
+
+    <div id="post-container">
+                <article class="post-entry">
+                    <header class="entry-header">
+                        <time>
+                            05.03.2021
+                        </time>
+                        <a href="/analiz-rynka-aktsii-moex-chast-3-validatsiia-dannykh-na-osnove-reshaiushchikh-derevev.html" rel="bookmark"><h1>Анализ рынка акций MOEX. Часть 3. Валидация данных на основе решающих деревьев</h1></a>
+                    </header>
+
+                    <section class="post-content">
+                        <blockquote>
+<p>Цифры сами по себе не умеют говорить. Именно мы говорим за них. Мы наполняем их смыслом.
+ -- <cite>Нейт Сильвер, «Сигнал и шум»</cite></p>
+</blockquote>
+<h1>Итоговая проверка</h1>
+<p>В этой части мы сделаем то, с чего стоило бы начать. Почистим и подготовим датасет для самого очевидного алгоритма решения задачи.</p>
+<p>С помощью решающих деревьев посмотрим насколько оправданы наши прогнозы, сделанные эзотерическими методами.</p>
+<p>За основу возьмем тот же датасет из второй части с итогами деятельности компании за несколько лет.</p>
+<h2>Feature engineering</h2>
+<p>Приведем в порядок данные</p>
+<ol>
+<li>Сделаем каждый финансовый год отдельной записью для каждой компании.</li>
+<li>Добавим несколько важных признаков, которые не отражены в таблице, но выводятся из них  - Отношения прибыли без дивидентов к обязательствам компании и капитализация к активам.</li>
+<li>Для каждой записи добавим колонки: сколько компания покажет роста в следующем году (с учетом дивидентов и без).</li>
+<li>Для каждой записи добавим колонку про то, насколько выросла цена акции и какой был рост дивидендов с прошлого года.</li>
+<li>Удалим мультиколлинеарные столбцы.</li>
+<li>Уберем показатели в абсолютных цифрах (информация о них ушла в новые коэффициенты).</li>
+<li>Вместо показателей в абсолютных цифрах оставим ранговые. Для решающих деревьев это не имеет особого значения. Но так будет легче интерпретировать "Первые 4 компании по капитализации", вместо "Компании с капитализацией выше ... руб."</li>
+</ol>
+<p>Часть строк пришлось удалить, потому что для них нет или информации какой рост они покажут в следующем году, или какой рост был в прошлом.</p>
+<table>
+<thead>
+<tr>
+<th align="center"><img alt="Немного показателей" src="/images/Vybrosy.svg"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><em>Даже после удаления самых сильных выбросов большинство показателей содержит много выбивающихся от среднего данных. Но это суть рынка — есть неоспоримые лидеры, и те, кто стагнирует</em></td>
+</tr>
+</tbody>
+</table>
+<p>Получилось всего 168 строк. Очень мало, поэтому какие-то механизмы тестовых выборок и сложных алгоритмов тут не пригодны. Ограничимся случайным лесом.</p>
+<h2>Корреляции</h2>
+<p>Посмотрим сначала на сами взаимодействия показателей компании. <a href="https://yadi.sk/d/cEKx4S3l0ddFhQ">Таблица корреляций</a> получилась сама по себе большой и интересной.</p>
+<ul>
+<li>Процент дивидендов, который компания выплачивает из прибыли кореллирует с коэфциентом P/E (Насколько быстро окупится вложение в акцию при текущих ценах).</li>
+<li>Рентабельность активов выше у тех компании, у которых выше прибыль по отношению к обязательствам. Это не то, чтобы открытие, скорее следует из самого определения слова рентабельность :)</li>
+<li>Большие по капитализации компании имеют долги бОльшие в абсолютных цифрах, но меньшие в относительных.</li>
+<li>Долги компаний из retail сектора, финансовых органзаций и металлурги в среднем выше.</li>
+</ul>
+<h1>Целевые признаки</h1>
+<p>Мы возьмем в качестве цели найти взаимосвязь вышеприведенных признаков с </p>
+<ul>
+<li>Ростом стоимости акции в следующем году.</li>
+<li>Ростом прибыльности акции за счёт роста стоимости и выплаты дивидендов в следующем году.</li>
+</ul>
+<p>Разобьем выборку на 2 класса: 75% с меньшим показателем роста по целевому признаку и 25% лучших по росту по целевому признаку.</p>
+<h2>Точность предсказаний</h2>
+<p>Подобрав гиперпараметры остановился на глубине дерева пять. Без отдельной тестовой выборки точно подобрать без риска переобучения не получится. Но в случайном лесу есть встроенный способ валидации данных - out-of-bag score. Точность(accuracy) предсказания войдет ли компания в число самых 25% выросших по прибыли составляет около 81% при соотношение бинарных классов 3 к 1.</p>
+<h2>Ценность признаков</h2>
+<p>Посмотрим на важность признаков с точки зрения насколько цена акции. Для простоты можно считать значение важным по отнощению к другим. Оно связано с т.н. "Чистотой джини"(не нашел для себя хорошего перевода показателя Gini Impurity, чтобы не путать с коэфициентом джини, которым обычно меряют неравенство общества), но это не особо важно для этого небольшого обзора.</p>
+<table>
+<thead>
+<tr>
+<th align="center">Показатель</th>
+<th align="center">Значимость для предсказания</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">Рост цены акции с прошлого года</td>
+<td align="center">0.106</td>
+</tr>
+<tr>
+<td align="center">Инвестирование к прибыли</td>
+<td align="center">0.098</td>
+</tr>
+<tr>
+<td align="center">Дивиденды / Прибыль</td>
+<td align="center">0.068</td>
+</tr>
+<tr>
+<td align="center">Капитализация / активы</td>
+<td align="center">0.067</td>
+</tr>
+<tr>
+<td align="center">P/E</td>
+<td align="center">0.061</td>
+</tr>
+<tr>
+<td align="center">Леверидж по задолженности</td>
+<td align="center">0.057</td>
+</tr>
+<tr>
+<td align="center">ROS</td>
+<td align="center">0.057</td>
+</tr>
+<tr>
+<td align="center">Прибыль без дивидентов / обязательства</td>
+<td align="center">0.056</td>
+</tr>
+<tr>
+<td align="center">Ранг по капитализации в этом году</td>
+<td align="center">0.055</td>
+</tr>
+<tr>
+<td align="center">Прибыль к выручке</td>
+<td align="center">0.053</td>
+</tr>
+<tr>
+<td align="center">К-т левериджа</td>
+<td align="center">0.052</td>
+</tr>
+<tr>
+<td align="center">P/S</td>
+<td align="center">0.050</td>
+</tr>
+<tr>
+<td align="center">P/B</td>
+<td align="center">0.049</td>
+</tr>
+<tr>
+<td align="center">ROE</td>
+<td align="center">0.046</td>
+</tr>
+<tr>
+<td align="center">Ранг по задолженности в году</td>
+<td align="center">0.046</td>
+</tr>
+<tr>
+<td align="center">ROA</td>
+<td align="center">0.034</td>
+</tr>
+<tr>
+<td align="center">Логистическая компания</td>
+<td align="center">0.009</td>
+</tr>
+<tr>
+<td align="center">Металлургия</td>
+<td align="center">0.008</td>
+</tr>
+<tr>
+<td align="center">Финансовая компания</td>
+<td align="center">0.007</td>
+</tr>
+<tr>
+<td align="center">Нефтяная компания</td>
+<td align="center">0.007</td>
+</tr>
+<tr>
+<td align="center">Ретейл компания</td>
+<td align="center">0.004</td>
+</tr>
+<tr>
+<td align="center">Телеком</td>
+<td align="center">0.003</td>
+</tr>
+<tr>
+<td align="center">Строительная отрасль</td>
+<td align="center">0.002</td>
+</tr>
+<tr>
+<td align="center">Химическая отрасль</td>
+<td align="center">0.002</td>
+</tr>
+<tr>
+<td align="center">Энергетическая компания</td>
+<td align="center">0.001</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Для роста акций компаний имеет значение росла ли цена акций с прошлого года. Если рост был совсем маленьким или отрицательным, а также если слишком большим — выше вероятность, что акции вырастут</li>
+<li>Также важно количество инвестиций с прибыли, количество выплаченных дивидендов, долги компании и стоимость акций по отношению к активам компании.</li>
+</ul>
+<p>Одно из решающих деревьев внутри случайного леса будет выглядеть так. Немного усекаю размеры для читаемости.</p>
+<table>
+<thead>
+<tr>
+<th align="center"><img alt="Немного показателей" src="/images/treeStockPrice.svg"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><em>Одно из деревьев внутри леса. Выборка делится достаточно четко</em></td>
+</tr>
+</tbody>
+</table>
+<p>Проведем теже вычисления для полной стоимости компании, если бы учитывали те дивидендты, которая даст компания</p>
+<table>
+<thead>
+<tr>
+<th align="center">Показатель</th>
+<th align="center">Значимость для предсказания</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">Капитализация / активы</td>
+<td align="center">0.197</td>
+</tr>
+<tr>
+<td align="center">Ранг по капитализации в этом году</td>
+<td align="center">0.113</td>
+</tr>
+<tr>
+<td align="center">Рост цены акции с прошлого года</td>
+<td align="center">0.112</td>
+</tr>
+<tr>
+<td align="center">P/B</td>
+<td align="center">0.066</td>
+</tr>
+<tr>
+<td align="center">Инвестирование к прибыли</td>
+<td align="center">0.059</td>
+</tr>
+<tr>
+<td align="center">Леверидж по задолженности</td>
+<td align="center">0.049</td>
+</tr>
+<tr>
+<td align="center">Ранг по задолженности в году</td>
+<td align="center">0.045</td>
+</tr>
+<tr>
+<td align="center">P/E</td>
+<td align="center">0.044</td>
+</tr>
+<tr>
+<td align="center">Дивиденды / Прибыль</td>
+<td align="center">0.041</td>
+</tr>
+<tr>
+<td align="center">К-т левериджа</td>
+<td align="center">0.041</td>
+</tr>
+<tr>
+<td align="center">P/S</td>
+<td align="center">0.040</td>
+</tr>
+<tr>
+<td align="center">Прибыль к выручке</td>
+<td align="center">0.037</td>
+</tr>
+<tr>
+<td align="center">ROS</td>
+<td align="center">0.035</td>
+</tr>
+<tr>
+<td align="center">ROE</td>
+<td align="center">0.033</td>
+</tr>
+<tr>
+<td align="center">Прибыль без дивидентов / обязательства</td>
+<td align="center">0.028</td>
+</tr>
+<tr>
+<td align="center">ROA</td>
+<td align="center">0.028</td>
+</tr>
+<tr>
+<td align="center">Металлургия</td>
+<td align="center">0.009</td>
+</tr>
+<tr>
+<td align="center">Финансовая компания</td>
+<td align="center">0.007</td>
+</tr>
+<tr>
+<td align="center">Энергетическая компания</td>
+<td align="center">0.006</td>
+</tr>
+<tr>
+<td align="center">Нефтяная компания</td>
+<td align="center">0.004</td>
+</tr>
+<tr>
+<td align="center">Ретейл компания</td>
+<td align="center">0.003</td>
+</tr>
+<tr>
+<td align="center">Логистическая компания</td>
+<td align="center">0.002</td>
+</tr>
+<tr>
+<td align="center">Телеком</td>
+<td align="center">0.002</td>
+</tr>
+<tr>
+<td align="center">Строительная отрасль</td>
+<td align="center">0.000</td>
+</tr>
+<tr>
+<td align="center">Химическая отрасль</td>
+<td align="center">0.000</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>На первое место вышли такие показатели как отношение капитализации к активам. Проще говоря, если в этом году рынок недооценивает стоимость компании по тому количеству активов, что у неё есть, то в следующем рынок выровняет этот показатель за счёт роста стоимости акций и выплаченных компанией дивидендов.</li>
+</ul>
+<p>Вот одно из решающих деревьев из леса.</p>
+<table>
+<thead>
+<tr>
+<th align="center"><img alt="Немного показателей" src="/images/treeGrowFull.svg"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><em>Одно из деревьев внутри леса. Выборка делится достаточно четко</em></td>
+</tr>
+</tbody>
+</table>
+<h2>Общие выводы</h2>
+<ul>
+<li>Тактика инвестирования в бумаги каждый месяц может сильно отличаться от инвестирования раз в год.</li>
+<li>Сам по себе сектор, возможно, не особо важен.</li>
+<li>При задаче долгосрочного инвестирования лидерство у недооцененных по активами компаний с небольшими долгом.</li>
+<li>Также важное значение играет количество инвестирования и рентабельность активов. Что сходится с прошлой статьёй.</li>
+</ul>
+                    </section>
+                    <hr/>
+                    <aside class="post-meta">
+                        <p>Category: <a href="/category/machinelearning.html">MachineLearning</a></p>
+                    </aside>
+                    <hr/>
+                </article>
+    </div>
+        </main>
+        <footer id="colophon" class="site-footer inner">
+          <div class="site-footer-inside">
+            <span class="copyright">Опубликовано с удовольствием 2019-2020</span>
+          </div>
+        </footer>
+      </div>
+
+        </div>
+
+        <script src="/theme/js/main.js" type="text/javascript"></script>
+        <script src="/theme/js/plugins.js" type="text/javascript"></script>
+        <!-- Yandex.Metrika counter -->
+        <script type="text/javascript" >
+           (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+           m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+           (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+           ym(69735988, "init", {
+                clickmap:true,
+                trackLinks:true,
+                accurateTrackBounce:true
+           });
+        </script>
+        <noscript><div><img src="https://mc.yandex.ru/watch/69735988" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+        <!-- /Yandex.Metrika counter -->
+    </body>
+
+
+
+<!--               
+
+ -->
