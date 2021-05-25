@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>    Нейросеть, воспроизводяющая партию по последнему ходу
+</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link href="https://fonts.googleapis.com/css?family=PT+Serif:400,400i,700,700i&amp;display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/theme/css/main.css">
+        <link rel="stylesheet" href="/theme/css/stars.css">
+        <link rel="stylesheet" href="/theme/css/gray.css">
+
+    <link rel="stylesheet" href="/theme/css/blog.css">
+    <link rel="stylesheet" href="/theme/css/github.css">
+        <!-- <script src="/theme/js/vendor/modernizr-2.6.2.min.js"></script> -->
+        <link rel="shortcut icon" href="/images/favicon.png" />
+
+    </head>
+    <body class="">
+        <div id="page" class="site palette-yellow">
+      
+      <header id="masthead" class="site-header bg--loaded">
+
+        <div id="header-bg" class="site-header-bg" style="background-image:url('/images/DATAscience.png')">
+          </div>
+        <div class="site-header-scroll">
+          <div class="site-header-inside">
+            <div class="site-header-vertical">
+              <div class="site-branding">
+                <p class="site-logo">
+
+                </p>
+                <p class="site-description">Stmirage projects page</p>
+              </div>
+              <nav id="main-navigation" class="site-navigation" aria-label="Main Navigation">
+
+                <div class="site-nav-wrap">
+                  <div class="site-nav-inside">
+                    <ul class="menu">
+                      <li class="menu-item current-menu-item">
+                        <a href="/">Главная</a>
+                      </li>
+                      <li class="menu-item">
+                        <a href="/pages/kontakty">Контакты</a>
+                      </li>
+                      <li class="menu-item">
+                        <a href="/pages/vse-proekty">Все проекты</a>
+                      </li>
+                    </ul>
+
+                  </div>
+                </div>
+              </nav>
+
+              <button id="menu-toggle" class="menu-toggle">
+                <span class="screen-reader-text">Menu</span>
+                <span class="icon-menu" aria-hidden="true"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+
+<!--
+
+        <footer id="colophon" class="site-footer inner">
+          <div class="site-footer-inside">
+            <span class="copyright">Опубликовано с удовольствием 2019-2020</span>
+          </div>
+        </footer>  
+-->
+
+
+
+
+
+        <div id="content" class="site-content">
+        <main id="main" class="site-main inner">
+
+    <div id="post-container">
+                <article class="post-entry">
+                    <header class="entry-header">
+                        <time>
+                            25.05.2021
+                        </time>
+                        <a href="/neiroset-vosproizvodiaiushchaia-partiiu-po-poslednemu-khodu.html" rel="bookmark"><h1>Нейросеть, воспроизводяющая партию по последнему ходу</h1></a>
+                    </header>
+
+                    <section class="post-content">
+                        <p>Не все проекты заканчиваются успешно и сразу. Иногда недели экспериментов не дают весомого результата. Этот — типичный пример того, как неоптимизированная архитектура привела к тому, что не хватило локальных ресурсов. Но обо всё по  порядку.</p>
+<blockquote>
+<p>"У тебя есть будущее в прошлом."</p>
+<p>-- <cite>Фильм «Довод»</cite></p>
+</blockquote>
+<p>Идея совместить путешествия во времени и машинное обучение пришла мне в голову из кинофильмов. Точнее из отвратительно поставленных кинофильмов и аниме, где герои совершенно не умеют играть в шахматы, хотя по сценарию это умнейшие люди.</p>
+<p>Например, в кинофильме «Шерлок Холмс. Игра теней.» в финальной битве Холмса и Мориарти за шахматной доской Мориарти начинает партию с совершенно нелогичного и глупого хода h4.</p>
+<table>
+<thead>
+<tr>
+<th align="center"><img alt="В игре" src="/images/chess1.png"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><em>h4</em></td>
+</tr>
+</tbody>
+</table>
+<p>Я прекрасно понимаю авторов — именно этот ход позволяет красиво поставить камеру сбоку от доски и придать сцене серьёзности. В Далёкой юности я сам ставил театральное представление в родном городе по шахматам. <a href="https://www.youtube.com/watch?v=cRWZ6M6lcXI&amp;t=1s">Вот этот ролик</a>. </p>
+<p>Я тоже столкнулся с тем, что современная хорошо сыгранная партия далеко не всегда бывает красивой с точки зрения непосвященного наблюдателя.Партии мастеров запутанны, редко заканчиваются матом (обычно противник сдаётся, но ещё чаще это ничья). Найти хорошую партию бывает сложно. Обычно режиссёры берут какую-то готовую партию из прошлого или делают какой-то красивый бред вместо игры.</p>
+<p>А что если бы режиссер смог сначала поставить красивый, необычный мат под сеттинг фильма, а компьютер бы в обратном порядке придумал ходы, которые бы привели к начальной позиции?</p>
+<p>Я не смог придумать никакой особой архитектуры для начала и начал с простой feed-forward нейронной сети вот такой архитектуры</p>
+<div class="highlight"><pre><span></span><span class="err">Net(</span>
+<span class="err">  (fc1): Linear(in_features=832, out_features=1664, bias=True)</span>
+<span class="err">  (fc2): Linear(in_features=1664, out_features=6656, bias=True)</span>
+<span class="err">  (fc3): Linear(in_features=6656, out_features=1664, bias=True)</span>
+<span class="err">  (fc4): Linear(in_features=1664, out_features=832, bias=True)</span>
+<span class="err">  (relu): ReLU()</span>
+<span class="err">)</span>
+</pre></div>
+
+
+<p>4 слоя. Входной вектор был 8 клеток по горизонтали х 8 вертикали х 13 возможных состояний доски (6 видов белых фигур, 6 черных, пустая клетка).</p>
+<p>На выходе получался вектор, который на каждую клетку для каждой фигуры выдавал свою степень уверенности в том, какая фигура тут должна стоять. После этого для каждой клетки выбиралась максимально вероятная фигура, и получалось состояние доски, которое должно было предшестовать тому, что подано на вход.</p>
+<h1>Простая сеть. Много данных.</h1>
+<p>Найти сборники партий достаточно легко. Я скачал какой-то сборник на 1 гигабайт. Основной проблемой было как-то поместить это в память видеокарты. Сами по себе партии очень маленькие, но при переводе в векторную форму занимали просто непомерно много пространства. пришлось писать отдельный кастомный загрузчик, который на лету переваривает каждый файл, загружает на видеокарту по чуть-чуть все позиции.</p>
+<p>После обучения loss перестал падать на каком-то моменте, и я проверил, что получилось.</p>
+<p>К большому сожалению, сеть была недообучена. Она в целом видела паттерны. Например, подав на вход классический e2-e4, я ожидал сразу увидеть первоначальное положение доски. Это был самый частый ход в партиях. Мне казалось, уж его-то нейросеть способная выучить.</p>
+<p>Но вместо этого я увидел другое положение дел.</p>
+<table>
+<thead>
+<tr>
+<th align="center"><img alt="В игре" src="/images/chess2.png"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><em>Предполагаемое начало партии</em></td>
+</tr>
+</tbody>
+</table>
+<p>У черных был утерян ферзь и пешка, зато появился третий конь. Белая пешка не отступила на изначальную позицию.</p>
+<p>Сеть была недообучена. Ей просто не хватало сложности. Но по другим примерам было уже видно, что в целом она понимает, что предыдущий ход это не очень далеко от существующего: большая часть фигур не меняла своего положеия, а 2 или 3 были перемещены, появлялись из ниоткуда, или исчезали.</p>
+<h1>Сложная сеть. Мало данных.</h1>
+<p>Первой большой проблемой было то, что как следует разроссшаяся сеть другой архитектуры не влезала в память видеокарты. Я насколько мог усложнил конструкцию и получилось что-то такое.</p>
+<div class="highlight"><pre><span></span><span class="err">class Net(nn.Module):</span>
+<span class="err">    def __init__(self):</span>
+<span class="err">        super(Net, self).__init__()</span>
+<span class="err">        self.fc1 = nn.Linear(shape_flat, shape_flat * 2)</span>
+<span class="err">        self.fc2 = nn.Linear(shape_flat * 2, shape_flat * 8)</span>
+<span class="err">        self.fc3 = nn.Linear(shape_flat * 8, shape_flat * 16)</span>
+<span class="err">        self.fc6 = nn.Linear(shape_flat * 16, shape_flat * 8)</span>
+<span class="err">        self.fc7 = nn.Linear(shape_flat * 8, shape_flat * 2)</span>
+<span class="err">        self.fc8 = nn.Linear(shape_flat * 2, shape_flat)</span>
+<span class="err">        self.relu = torch.nn.ReLU()</span>
+</pre></div>
+
+
+<p>Добавился всего один слой и ....</p>
+<p>обучение проходило крайне медленно. Видеокарта казалось закипит, но обучение шло настолько медленно, что за почти сутки работы не приблизилось к значениям предыдущей сети. К сожалению, я так и не довёл этот проект до конца. </p>
+<p>Обсудив проблематику с некоторыми специалистами, получил несколько вариантов, что можно сделать.</p>
+<ol>
+<li>Отказаться от нейронной архитектуры и придумать, например, алгоритм поиска по базе подходящего хода.</li>
+<li>Покопаться в области Q-Learning, и реализовать поиск лучшего обратного хода через систему наград агента за удачно найденный ход.</li>
+<li>Решить задачу алгоритимечески перебором доступных ходов.</li>
+</ol>
+<p>Ни один мне не понравилося, и я понял, что пока оставлю проекту статус Work in Progress и займусь чем-то другим.</p>
+                    </section>
+                    <hr/>
+                    <aside class="post-meta">
+                        <p>Category: <a href="/category/machinelearning.html">MachineLearning</a></p>
+                    </aside>
+                    <hr/>
+                </article>
+    </div>
+        </main>
+        <footer id="colophon" class="site-footer inner">
+          <div class="site-footer-inside">
+            <span class="copyright">Опубликовано с удовольствием 2019-2020</span>
+          </div>
+        </footer>
+      </div>
+
+        </div>
+
+        <script src="/theme/js/main.js" type="text/javascript"></script>
+        <script src="/theme/js/plugins.js" type="text/javascript"></script>
+        <!-- Yandex.Metrika counter -->
+        <script type="text/javascript" >
+           (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+           m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+           (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+           ym(69735988, "init", {
+                clickmap:true,
+                trackLinks:true,
+                accurateTrackBounce:true
+           });
+        </script>
+        <noscript><div><img src="https://mc.yandex.ru/watch/69735988" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+        <!-- /Yandex.Metrika counter -->
+    </body>
+
+
+
+<!--               
+
+ -->
