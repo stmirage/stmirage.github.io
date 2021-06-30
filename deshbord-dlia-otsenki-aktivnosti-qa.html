@@ -2,7 +2,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>    Все проекты
+        <title>    Дешборд для оценки активности QA
 </title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -80,33 +80,55 @@
         <main id="main" class="site-main inner">
 
     <div id="post-container">
-
                 <article class="post-entry">
-                        <a href="/pages/vse-proekty.html" rel="bookmark"><h1>Все проекты</h1></a>
-                    
-                    <section class="post-content">
-                        <h3>Машинное обучение</h3>
-<p><a href="/generiruem-pikselnykh-pokemonov-neirosetiami.html">Генерация пиксельных покемонов</a></p>
-<p><a href="/pishchevaia-bezdna-issledovanie-retseptov-saita-povarenok-chast-3.html">Анализ данных сайта поваренок. Часть 3.</a></p>
-<p><a href="/analiz-rynka-aktsii-moskovskoi-birzhi-chast-1.html">Анализ фондового рынка. Часть первая. Алгоритмы сжатия информации</a></p>
-<p><a href="/heroes-of-might-and-moex-analiz-moskovskoi-birzhi-posredstvom-geneticheskikh-algoritmov-chast-2.html">Анализ фондового рынка. Часть вторая. Генетические алгоритмы.</a></p>
-<p><a href="/analiz-rynka-aktsii-moex-validatsiia-dannykh-na-osnove-reshaiushchikh-derevev-chast-3.html">Анализ фондового рынка. Часть Третья. Решающие деревья.</a></p>
-<p><a href="/neiroset-vosproizvodiaiushchaia-partiiu-po-poslednemu-khodu.html">Нейросеть, играющая в шахматы в обратном порядке</a></p>
-<h3>Анализ данных</h3>
-<p><a href="/izmerenie-magnitnogo-polia-s-kvadrakoptera.html">Работа с датчиком магнитного поля</a></p>
-<p><a href="/pishchevaia-bezdna-issledovanie-retseptov-saita-povarenok-chast-1.html">Анализ данных сайта поваренок. Часть 1.</a></p>
-<p><a href="/pishchevaia-bezdna-issledovanie-retseptov-saita-povarenok-chast-2.html">Анализ данных сайта поваренок. Часть 2.</a></p>
-<h3>QA</h3>
-<p><a href="/prilozheniia-dlia-sobesedovanii-qa.html">Забагованное приложение для собеседований QA</a></p>
-<p><a href="/oprosnik-dlia-sobesedovanii-qa.html">Опросник для собеседований QA</a></p>
-<p><a href="/deshbord-dlia-otsenki-aktivnosti-qa.html">Дешбоард для Тестрейла</a></p>
-<h3>GameDev</h3>
-<p><a href="/volchok-igra-s-maskotom-brenda-volkovskoi-pivovarni.html">Игра Волчок</a>
-<a href="/khanafuda-iaponskaia-nastolnaia-igra.html">Игра Ханафуда</a></p>
-<h3>Иное</h3>
-<p><a href="/vesiolaia-konspirologiia-nesbyvshiisia-animatsionnyi-serial-mechty.html">Анимационный ролик</a></p>
-                    </section>
+                    <header class="entry-header">
+                        <time>
+                            30.06.2021
+                        </time>
+                        <a href="/deshbord-dlia-otsenki-aktivnosti-qa.html" rel="bookmark"><h1>Дешборд для оценки активности QA</h1></a>
+                    </header>
 
+                    <section class="post-content">
+                        <p>Совсем коротенькая заметка, потому что большая часть под NDA.</p>
+<blockquote>
+<p>"Когда говорят об отсутствующих, у них в это время звенит в ушах."</p>
+<p>-- <cite>Плиний Старший</cite></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center"><img alt="В игре" src="/images/testrail.png"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><em>Основной экран</em></td>
+</tr>
+</tbody>
+</table>
+<h3>Инструменты</h3>
+<ul>
+<li>python</li>
+<li>httpx, Flask</li>
+<li>UiKit, Tabulator.js</li>
+<li>Вероятно, бесплатные изображения для фона</li>
+</ul>
+<h3>Описание</h3>
+<p>Тестрейл — практически стандарт места, где тестировщик может вести тесткейсы. У него прекрасное, но очень не менеджеро ориентированное API.</p>
+<p>Глядя на него ты понимаешь, что программист думал о базах данных, но не о людях. При способности вернуть почти всё, что угодно, API рейла не способно ответить сразу и четко на многие вопросы менеджмента:</p>
+<ul>
+<li>Вот у нас большая компания, а сколько кейсов всего у нас есть?</li>
+<li>Сколько кейсов у нас связаны с пользовательскими историями, привязаны хоть к какому-то контесту?</li>
+<li>Я попросил тестировщиков указывать сколько времени уходит на прохождение каждого тест-кейса. Сколько времени займет тестирование всего списка тест-кейсов?</li>
+</ul>
+<p>И так далее. Удивительно, но для ответа на простые вопросы пришлось писать асинхронный код. Попрощался с классической для python библиотекой requests и перейти на httpx.</p>
+<p>В итоге задача сделать прототип такое приложение выполнена. Удивительно много костылей приходится писать там, где этого не ждешь.</p>
+                    </section>
+                    <hr/>
+                    <aside class="post-meta">
+                        <p>Category: <a href="/category/qa.html">QA</a></p>
+                    </aside>
+                    <hr/>
                 </article>
     </div>
         </main>
