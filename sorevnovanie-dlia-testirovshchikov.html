@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>    Соревнование для тестировщиков
+</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link href="https://fonts.googleapis.com/css?family=PT+Serif:400,400i,700,700i&amp;display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/theme/css/main.css">
+        <link rel="stylesheet" href="/theme/css/stars.css">
+        <link rel="stylesheet" href="/theme/css/gray.css">
+
+    <link rel="stylesheet" href="/theme/css/blog.css">
+    <link rel="stylesheet" href="/theme/css/github.css">
+        <!-- <script src="/theme/js/vendor/modernizr-2.6.2.min.js"></script> -->
+        <link rel="shortcut icon" href="/images/favicon.png" />
+
+    </head>
+    <body class="">
+        <div id="page" class="site palette-yellow">
+      
+      <header id="masthead" class="site-header bg--loaded">
+
+        <div id="header-bg" class="site-header-bg" style="background-image:url('/images/DATAscience.png')">
+          </div>
+        <div class="site-header-scroll">
+          <div class="site-header-inside">
+            <div class="site-header-vertical">
+              <div class="site-branding">
+                <p class="site-logo">
+
+                </p>
+                <p class="site-description">Stmirage projects page</p>
+              </div>
+              <nav id="main-navigation" class="site-navigation" aria-label="Main Navigation">
+
+                <div class="site-nav-wrap">
+                  <div class="site-nav-inside">
+                    <ul class="menu">
+                      <li class="menu-item current-menu-item">
+                        <a href="/">Главная</a>
+                      </li>
+                      <li class="menu-item">
+                        <a href="/pages/kontakty">Контакты</a>
+                      </li>
+                      <li class="menu-item">
+                        <a href="/pages/vse-proekty">Все проекты</a>
+                      </li>
+                    </ul>
+
+                  </div>
+                </div>
+              </nav>
+
+              <button id="menu-toggle" class="menu-toggle">
+                <span class="screen-reader-text">Menu</span>
+                <span class="icon-menu" aria-hidden="true"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+
+<!--
+
+        <footer id="colophon" class="site-footer inner">
+          <div class="site-footer-inside">
+            <span class="copyright">Опубликовано с удовольствием 2019-2020</span>
+          </div>
+        </footer>  
+-->
+
+
+
+
+
+        <div id="content" class="site-content">
+        <main id="main" class="site-main inner">
+
+    <div id="post-container">
+                <article class="post-entry">
+                    <header class="entry-header">
+                        <time>
+                            06.12.2021
+                        </time>
+                        <a href="/sorevnovanie-dlia-testirovshchikov.html" rel="bookmark"><h1>Соревнование для тестировщиков</h1></a>
+                    </header>
+
+                    <section class="post-content">
+                        <blockquote>
+<p>"В школах уверяют, что цель тестирования — выявить уровень знаний ребенка. На самом же деле тестами стремятся выявить то, чего он не знает. Все дети любят познавать и ненавидят, когда их проверяют. В этом отношении они похожи на взрослых. Мы любим себя проверять, но в частном порядке, когда этого никто не видит. То же самое относится и к детям."</p>
+<p>-- <cite>Глен Доман. Гармоничное развитие ребенка.</cite></p>
+</blockquote>
+<p>В блоге уже есть небольшая заметка о приложении предназначенном для тестирования кандидатов на собеседовании. Концепт очень удачно лег на давнюю идею сделать мероприятие полностью посвященному тестированию.</p>
+<p>Сейчас довольно много хакатонов, но как правило тестировщику отводится второстепенная роль. Приложения, написанные за день, скорее требуют отладки, чем тестирования. В большинстве случаев можно обойтись без тестировщика.</p>
+<p>Хотелось же посвятить полностью всё мероприятие целиком тестированию, где тестировщик был бы главным действующим лицом.</p>
+<p>За основу был взят концепт очень забагованного приложения, а участникам предлагалось выполнить две задачи:</p>
+<ul>
+<li>Найти максимальное количество багов</li>
+<li>Провести полноценный анализ качества продукта, и объяснить Product Owner почему даже при починке всех багов это приложение не должно быть опубликовано.</li>
+</ul>
+<p>С первой частью задания всё понятно: приложение содержало всевозможные виды дефектов от неправаильной верстки до сложного калькулятора, у которого еще надо было найти те условия при которых он ломается.</p>
+<p>Вторая же требовала очень специфичечского подхода. Как показать, что работающее по ТЗ приложение содержит глубокие проблемы, которые не исправить без изменения всей логики?</p>
+<p>Начал я с того, что старательно создал атмосферу чего-то странного. Приложение с первого взгляда давало понять, что «Так никто не делает». Был создан некий виртуальный аукцион, на котором выставлены картины, деньги от продаж которых пойдут на спасение снежных барсов.</p>
+<table>
+<thead>
+<tr>
+<th align="center"><img alt="В игре" src="/images/Quach1.png"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><em>Начинаем спасать барсов</em></td>
+</tr>
+</tbody>
+</table>
+<p>Всё было сделано неестественным и нескладывающимся в одну картину: вместо картин я обработал фотографии нейросетями в ostagram, , вместо фотографии одной художница была Дженифер Лопез, само приложение сделано по древним технологиям Web 1.0 (там где вместо современного разделения API и Ajax подгрузки просто статичные страницы), ненужные блоки с информацией.</p>
+<p>Даже вместо пары логин-пароль был использован другой механизм - пользователь просто вводил уникальный пароль не используя логин.</p>
+<table>
+<thead>
+<tr>
+<th align="center"><img alt="В игре" src="/images/Quach2.png"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><em>Типичная художница из Казани</em></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th align="center"><img alt="В игре" src="/images/Quach4.png"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><em>И её картины</em></td>
+</tr>
+</tbody>
+</table>
+<p>В каждой мелочи было что-то, что вызывало вопрос «Зачем?». Телефоны и емейлы кричащие о том, что они ведут в никуда, перепутанные имена и фотографии в разных местах, куски английского текста и просто ненужные элементы</p>
+<table>
+<thead>
+<tr>
+<th align="center"><img alt="В игре" src="/images/Quach3.png"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><em>Здесь фотографии не соответствуют фотографиям тех же людей в другом месте, а еще зачем-то оценка в 5 звёзд, не несущая смысла</em></td>
+</tr>
+</tbody>
+</table>
+<p>Я рад, что участники справились, аргументируя нелогичность проекта и огромный список рисков, которые будут сопутствовать реализации проекта.</p>
+<p>Также была большая секция посвященная тест-дизайну, представленная как большой калькулятор для открытия вкладов. Найти проблемы в нём простым тычком было сложнее, требовалось использование специализированных техник, известных каждому тестировщику.</p>
+<table>
+<thead>
+<tr>
+<th align="center"><img alt="В игре" src="/images/Quach3.png"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><em>Следует следить за тем, куда вкладываешь деньги</em></td>
+</tr>
+</tbody>
+</table>
+<p>По технологиям обошелся просто Flask приложением, запакованным в docker контейнер. Спасибо коллеге за совместное написание :3</p>
+<p>Каждая команда получала уникальную ссылку, по которой могла тестировать приложение и детальный регламент того, как оцениваются результаты. Участвовало 5 судей, у которых ушло 2 часа на проверку нескольких сотен багов (участвовало 13 команд),и мы все чертвоски устали. Но, возможно, это был мой лучший вклад в профессию, которой я занимаюсь.</p>
+                    </section>
+                    <hr/>
+                    <aside class="post-meta">
+                        <p>Category: <a href="/category/qa.html">QA</a></p>
+                    </aside>
+                    <hr/>
+                </article>
+    </div>
+        </main>
+        <footer id="colophon" class="site-footer inner">
+          <div class="site-footer-inside">
+            <span class="copyright">Опубликовано с удовольствием 2019-2020</span>
+          </div>
+        </footer>
+      </div>
+
+        </div>
+
+        <script src="/theme/js/main.js" type="text/javascript"></script>
+        <script src="/theme/js/plugins.js" type="text/javascript"></script>
+        <!-- Yandex.Metrika counter -->
+        <script type="text/javascript" >
+           (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+           m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+           (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+           ym(69735988, "init", {
+                clickmap:true,
+                trackLinks:true,
+                accurateTrackBounce:true
+           });
+        </script>
+        <noscript><div><img src="https://mc.yandex.ru/watch/69735988" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+        <!-- /Yandex.Metrika counter -->
+    </body>
+
+
+
+<!--               
+
+ -->
